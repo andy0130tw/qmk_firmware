@@ -151,13 +151,18 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 	@$(SECHO) $(MSG_EXTENDED_COFF) $(BUILD_DIR)/$(TARGET).cof
 	$(COFFCONVERT) -O coff-ext-avr $< $(BUILD_DIR)/$(TARGET).cof
 
-ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
+ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
+QMK_BOOTLOADER_TYPE = DFU
+else ifeq ($(strip $(BOOTLOADER)), qmk-dfu)
 QMK_BOOTLOADER_TYPE = DFU
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 QMK_BOOTLOADER_TYPE = HID
 endif
 
 bootloader:
+ifeq ($(strip $(BOOTLOADER)), atmel-dfu)
+	cp util/bootloader_$(MCU)_1.0.0.hex $(TARGET)_bootloader.hex
+else
 ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
 	$(error Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
 else
@@ -170,6 +175,7 @@ else
 	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
 	printf "Bootloader$(QMK_BOOTLOADER_TYPE).hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Bootloader$(QMK_BOOTLOADER_TYPE).hex $(TARGET)_bootloader.hex
+endif
 endif
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
