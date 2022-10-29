@@ -115,7 +115,7 @@ define EXEC_DFU
 	fi; \
 	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
 		printf "$(MSG_BOOTLOADER_NOT_FOUND)" ;\
-		sleep 5 ;\
+		sleep 1 ;\
 	done; \
 	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
 		$(DFU_PROGRAMMER) $(MCU) erase --force; \

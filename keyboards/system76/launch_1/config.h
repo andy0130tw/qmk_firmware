@@ -57,10 +57,10 @@
 #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 // EEPROM {
 #define EEPROM_SIZE 1024
@@ -90,5 +90,11 @@
 #define SYSTEM76_EC_EEPROM_ADDR (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE)
 #define SYSTEM76_EC_EEPROM_SIZE (EEPROM_SIZE - SYSTEM76_EC_EEPROM_ADDR)
 // } System76 EC
+
+// MOUSEKEY-related
+// #define MK_KINETIC_SPEED
+// #define MOUSEKEY_INITIAL_SPEED 1
+// #define MOUSEKEY_BASE_SPEED 2
+// #define MOUSEKEY_ACCELERATED_SPEED 3
 
 #endif // CONFIG_H
