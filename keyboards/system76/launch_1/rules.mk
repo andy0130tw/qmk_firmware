@@ -15,7 +15,7 @@ BOOTLOADER = atmel-dfu
 BOOTMAGIC_ENABLE = no       # Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and system control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 DYNAMIC_KEYMAP_ENABLE = yes # Reconfigurable keyboard without flashing firmware
 NKRO_ENABLE = yes           # USB N-key rollover
@@ -27,6 +27,11 @@ RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_CUSTOM_KB = yes  # Custom keyboard effects
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes            # Link-time optimization for smaller binary
+
+# to squeeze out some space
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
+MAGIC_ENABLE = no
 
 # Add System76 EC command interface as well as I2C and USB mux drivers
 SRC += system76_ec.c usb_mux.c

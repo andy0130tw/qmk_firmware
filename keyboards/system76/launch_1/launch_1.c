@@ -18,6 +18,7 @@
 #include "launch_1.h"
 
 #include "usb_mux.h"
+#include "print.h"
 
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
@@ -191,6 +192,29 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #else
             return true;
 #endif
+        case RGB_MOD:
+            if (record->event.pressed) {
+                // _Static_assert(RGB_MATRIX_CYCLE_UP_DOWN == 1, "RGB_MATRIX_CYCLE_UP_DOWN");
+                enum rgb_matrix_effects mode = layer_rgb[0].mode;
+                uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
+                const uint8_t max = RGB_MATRIX_CUSTOM_active_keys;
+                if (shifted) {
+                    mode--;
+                    if (mode < 1) {
+                        mode = max - 1;
+                    }
+                } else {
+                    mode++;
+                    if (mode >= max) {
+                        mode = 1;
+                    }
+                }
+                layer_rgb[0].mode = mode;
+                uprintf("LED updated: mode=%d, shifted=%d; unlocked=%d\n", mode, shifted, RGB_MATRIX_CUSTOM_unlocked);
+                system76_ec_rgb_layer(layer_state);
+            }
+            return false;
+
         case RGB_VAD:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_config.hsv.v;
