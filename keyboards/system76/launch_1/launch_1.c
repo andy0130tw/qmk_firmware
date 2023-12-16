@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "launch_1.h"
+#include "quantum.h"
 
 #include "usb_mux.h"
 #include "print.h"
@@ -74,7 +74,7 @@ led_config_t g_led_config = { {
 } };
 #endif // RGB_MATRIX_ENABLE
 
-bool eeprom_is_valid(void) { 
+bool eeprom_is_valid(void) {
     return (
         eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
         eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION
@@ -138,7 +138,9 @@ void matrix_init_kb(void) {
     } else {
         system76_ec_rgb_eeprom(false);
     }
+}
 
+void keyboard_post_init_user(void) {
     system76_ec_rgb_layer(layer_state);
 }
 

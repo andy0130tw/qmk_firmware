@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Thelio Io 2",
+    "manufacturer": "System76",
+    "usb": {
+        "vid": "0x3384",
+        "pid": "0x000B",
+        "device_version": "0.0.1"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+}
